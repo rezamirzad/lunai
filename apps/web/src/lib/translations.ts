@@ -28,6 +28,7 @@ export const translations: Record<Language, TranslationInterface> = {
       },
     ],
     recommendedBadge: "Recommandé",
+    login: "Se connecter",
     serviceList: [
       {
         title: "Performance Next-Gen",
@@ -116,7 +117,7 @@ export const translations: Record<Language, TranslationInterface> = {
         {
           title: "Le virage agentique",
           date: "01/06/2026",
-          desc: "Pourquoi l'avenir des opérations de venture n'est pas seulement automatisé, mais agentique.",
+          desc: "Pourquoi l'avenir des opérations de venture n'est pas seulement automatisé, but agentic.",
         },
       ],
     },
@@ -148,6 +149,7 @@ export const translations: Record<Language, TranslationInterface> = {
       },
     ],
     recommendedBadge: "Recommended",
+    login: "Log in",
     serviceList: [
       {
         title: "Next-Gen Performance",
@@ -483,6 +485,4 @@ export const translations: Record<Language, TranslationInterface> = {
       ],
     },
   },
-};
-,
 };
