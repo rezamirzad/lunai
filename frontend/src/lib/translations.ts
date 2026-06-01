@@ -7,8 +7,8 @@ export interface TranslationInterface {
   services: string;
   tarifs: string;
   techBadge: string;
-  portfolioLabel: string; // Key for Navbar
-  portfolioTitle: string; // Key for Section Title
+  portfolioLabel: string;
+  portfolioTitle: string;
   projects: {
     title: string;
     desc: string;
@@ -38,11 +38,23 @@ export interface TranslationInterface {
     send: string;
     success: string;
   };
+  about: {
+    title: string;
+    content: string[];
+  };
+  blog: {
+    title: string;
+    posts: {
+      title: string;
+      date: string;
+      desc: string;
+    }[];
+  };
 }
 
 export const translations: Record<Language, TranslationInterface> = {
   FR: {
-    heroTitle: "LUMZ",
+    heroTitle: "LunAI",
     heroSub: "Votre partenaire digital de proximité au Luxembourg.",
     cta: "Démarrer un projet",
     services: "Services",
@@ -143,9 +155,26 @@ export const translations: Record<Language, TranslationInterface> = {
       send: "Envoyer la demande",
       success: "Votre message a été transmis avec succès !",
     },
+    about: {
+      title: "A propos",
+      content: [
+        "Au cœur de notre vision, nous croyons que les entreprises les plus performantes sont celles qui reposent sur des opérations fluides et évolutives. Nous sommes un studio de venture propulsé par l'IA qui déploie des frameworks autonomes spécialisés pour accélérer la croissance.",
+        "En intégrant une suite d'agents haute performance — allant des architectes backend aux stratèges marketing transfrontaliers — nous permettons aux fondateurs et aux opérateurs de se concentrer sur la vision plutôt que sur l'exécution.",
+      ],
+    },
+    blog: {
+      title: "Blog",
+      posts: [
+        {
+          title: "Le virage agentique",
+          date: "01/06/2026",
+          desc: "Pourquoi l'avenir des opérations de venture n'est pas seulement automatisé, mais agentique.",
+        },
+      ],
+    },
   },
   EN: {
-    heroTitle: "LUMZ",
+    heroTitle: "LunAI",
     heroSub: "Your local digital partner in Luxembourg.",
     cta: "Start a project",
     services: "Services",
@@ -246,9 +275,26 @@ export const translations: Record<Language, TranslationInterface> = {
       send: "Send Request",
       success: "Your message has been sent successfully!",
     },
+    about: {
+      title: "About Us",
+      content: [
+        "At the core of our vision is the belief that the most successful businesses are those built on smooth and scalable operations. We are an AI-driven venture studio deploying specialized autonomous frameworks to accelerate growth.",
+        "By integrating a suite of high-performance agents — from backend architects to cross-border marketing strategists — we enable founders and operators to focus on vision rather than execution.",
+      ],
+    },
+    blog: {
+      title: "Blog",
+      posts: [
+        {
+          title: "The Agentic Shift",
+          date: "06/01/2026",
+          desc: "Why the future of venture operations is not just automated, but agentic.",
+        },
+      ],
+    },
   },
   DE: {
-    heroTitle: "LUMZ",
+    heroTitle: "LunAI",
     heroSub: "Ihr lokaler Digitalpartner in Luxemburg.",
     cta: "Projekt starten",
     services: "Leistungen",
@@ -349,9 +395,26 @@ export const translations: Record<Language, TranslationInterface> = {
       send: "Anfrage senden",
       success: "Ihre Nachricht wurde erfolgreich gesendet!",
     },
+    about: {
+      title: "Über uns",
+      content: [
+        "Im Kern unserer Vision glauben wir, dass die leistungsstärksten Unternehmen diejenigen sind, die auf reibungslosen und skalierbaren Operationen basieren. Wir sind ein von KI angetriebenes Venture-Studio, das spezialisierte autonome Frameworks einsetzt, um Wachstum zu beschleunigen.",
+        "Durch die Integration einer Suite von Hochleistungsagenten – von Backend-Architekten bis hin zu grenzüberschreitenden Marketingstrategen – ermöglichen wir es Gründern und Betreibern, sich auf die Vision statt auf die Ausführung zu konzentrieren.",
+      ],
+    },
+    blog: {
+      title: "Blog",
+      posts: [
+        {
+          title: "The Agentic Shift",
+          date: "06/01/2026",
+          desc: "Why the future of venture operations is not just automated, but agentic.",
+        },
+      ],
+    },
   },
   LU: {
-    heroTitle: "LUMZ",
+    heroTitle: "LunAI",
     heroSub: "Ären digitale Partner hei zu Lëtzebuerg.",
     cta: "E Projet starten",
     services: "Servicer",
@@ -451,6 +514,23 @@ export const translations: Record<Language, TranslationInterface> = {
       message: "Erzielt eis vun Ärem Projet...",
       send: "Ufro schécken",
       success: "Äre Message gouf erfollegräich geschéckt!",
+    },
+    about: {
+      title: "Iwwer eis",
+      content: [
+        "Am Kär vun eiser Visioun gleewen mir, datt déi erfollegräichst Entreprisen déi sinn, déi op reibungslose a skalierbar Operatiounen baséieren. Mir sinn e KI-gedriwwene Venture-Studio, deen spezialiséiert autonom Frameworks asetzt, fir Wuesstem ze beschleunegen.",
+        "Duerch d'Integratioun vun enger Suite vu Hochleistungsagenten – vun Backend-Architekten bis hin zu grenzüberschreitenden Marketingstrategen – erméiglechen mir et Grënner a Betreibern, sech op d'Visioun amplaz op d'Ausféierung ze konzentréieren.",
+      ],
+    },
+    blog: {
+      title: "Blog",
+      posts: [
+        {
+          title: "The Agentic Shift",
+          date: "06/01/2026",
+          desc: "Why the future of venture operations is not just automated, but agentic.",
+        },
+      ],
     },
   },
 };

@@ -19,9 +19,9 @@ export default function Hero({ t }: { t: TranslationInterface }) {
 
         {/* Massive Typography for brand authority */}
         <h1 className="text-[6rem] md:text-[12rem] lg:text-[18rem] font-black tracking-tighter text-white leading-none mb-8 select-none">
-          LUM
+          Lun
           <span className="text-transparent bg-clip-text bg-gradient-to-t from-blue-700 to-blue-400 italic">
-            Z
+            AI
           </span>
         </h1>
 

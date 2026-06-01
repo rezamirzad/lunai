@@ -7,7 +7,7 @@ const Footer = ({ t }: { t: TranslationInterface }) => {
       {/* Section Logo & Slogan */}
       <div className="text-center">
         <div className="text-white text-xl font-black tracking-tighter mb-2">
-          <span className="text-blue-500">LUMZ</span>
+          <span className="text-blue-500">LunAI</span>
         </div>
         <p className="text-[10px] text-gray-500 uppercase tracking-[0.3em]">
           Luxembourg Digital Craft
@@ -45,7 +45,7 @@ const Footer = ({ t }: { t: TranslationInterface }) => {
 
         <div className="text-[9px] text-zinc-600 uppercase tracking-[0.2em] font-medium">
           © {new Date().getFullYear()}{" "}
-          <span className="text-zinc-500">LUMZ</span> — Part of{" "}
+          <span className="text-zinc-500">LunAI</span> — Part of{" "}
           <span className="text-zinc-400 font-bold text-blue-500/80">
             LunAI
           </span>

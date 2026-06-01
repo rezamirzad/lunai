@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "LUMZ - Artisanat Numérique",
+  title: "LunAI - Artisanat Numérique",
   description: "Votre partenaire digital au Luxembourg",
 };
 
