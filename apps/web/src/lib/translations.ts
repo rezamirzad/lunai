@@ -268,6 +268,7 @@ export const translations: Record<Language, TranslationInterface> = {
       },
     ],
     recommendedBadge: "Empfohlen",
+    login: "Anmelden",
     serviceList: [
       {
         title: "Next-Gen Performance",

@@ -72,6 +72,12 @@ export default function Navbar({
             </button>
           </div>
 
+          <UserAuth 
+            label={t.login} 
+            onClick={onLogin}
+            className="ml-2 md:ml-0"
+          />
+
           <div className="flex bg-white/5 rounded-lg p-1 border border-white/10 shrink-0">
             {(["FR", "EN", "DE", "LU"] as Language[]).map((l) => (
               <button

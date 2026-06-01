@@ -29,6 +29,11 @@ export default function Home() {
   const t = translations[lang];
   const [posts, setPosts] = useState<Post[]>([]);
 
+  const handleLogin = () => {
+    console.log("Login requested");
+    // This is where you would trigger the auth flow (e.g. Supabase Auth, Clerk, etc.)
+  };
+
   useEffect(() => {
     // Fetch posts when the component mounts
     fetchBlogPosts().then(setPosts);
@@ -42,6 +47,7 @@ export default function Home() {
         setLang={setLang}
         t={t}
         onViewChange={setActiveView}
+        onLogin={handleLogin}
       />
 
       <main className="pt-16">

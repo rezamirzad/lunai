@@ -48,13 +48,17 @@ This document details the exact props and contracts required for the atomic comp
 
 ---
 
-## 4. Input & Textarea
-**Location**: `packages/ui/src/Input.tsx`
-**Pattern**: Atomic Form Primitive
+## 5. UserAuth
+**Location**: `packages/ui/src/UserAuth.tsx`
+**Pattern**: Atomic Molecule
 
 ### Props:
-- Standard `InputHTMLAttributes` / `TextareaHTMLAttributes`.
+- `label`: String for the button text (e.g., "Log in").
+- `onClick`: Callback for interaction.
+- `isLoggedIn`: Boolean to toggle between Login button and User profile.
+- `userName`: Optional string for the logged-in user's name.
 
 ### Contract:
-- Standardizes the "dark mode" input aesthetic (black bg, gray border, blue focus).
-- Full width by default.
+- Stateless molecule combining `Button` and profile layout.
+- Decoupled from Auth providers (Supabase/Neon).
+- Handles both unauthenticated (Button) and authenticated (Profile) states.

@@ -30,6 +30,7 @@ export interface TranslationInterface {
     features: string[];
   };
   recommendedBadge: string;
+  login: string;
   contact: {
     title: string;
     name: string;
