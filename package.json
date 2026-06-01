@@ -4,12 +4,12 @@
   "private": true,
   "description": "Fullstack monorepo template with Next.js and Express",
   "workspaces": [
-    "frontend",
-    "backend"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
-    "dev:frontend": "npm run dev --workspace=frontend",
-    "dev:backend": "npm run dev --workspace=backend",
+    "dev:web": "npm run dev --workspace=@workspace/web",
+    "dev:api": "npm run dev --workspace=@workspace/api",
     "build:all": "npm run build --workspaces",
     "install:all": "npm install"
   },
@@ -26,6 +26,9 @@
     "better-sqlite3": "^12.8.0"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.13"
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^20.19.39",
+    "typescript": "^5.4.5",
+    "eslint": "^8.57.0"
   }
 }

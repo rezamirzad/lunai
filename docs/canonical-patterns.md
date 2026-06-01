@@ -1,14 +1,35 @@
-# Canonical Patterns
+# Canonical Patterns: Atomic & Stateless Design
 
-## Monorepo Structure
-- **Apps**: All deployable applications and services reside in `/apps/` (e.g., `/apps/frontend`, `/apps/backend`).
-- **Packages**: Shared code, components, and utilities reside in `/packages/` (e.g., `/packages/shared`).
+## 1. Atomic Component Design
+Shared components must be **Stateless Primitives**.
 
-## Shared Code
-- **Components**: Shared UI components are extracted to `/packages/shared/components/` so they can be consumed by multiple apps.
-- **Utilities**: Shared business logic and helper functions are extracted to `/packages/shared/utils/`.
-- **Types**: Shared TypeScript types are maintained in `/packages/shared/types/`.
+### The "Dumb" Rule
+- **No Internal State**: Components should not use `useState` for business logic (UI-only state like "isOpen" is okay but discouraged).
+- **No Side Effects**: No `useEffect` for data fetching or global event listeners.
+- **Pure Rendering**: A component given the same props must render the same UI.
 
-## Dependency Management
-- **Hoisting**: Common `devDependencies` such as `typescript`, `eslint`, and global type definitions (e.g., `@types/node`) are hoisted to the root `package.json` to ensure consistency and speed up installations.
-- **Path Aliases**: Applications consume shared packages via TypeScript path aliases (e.g., `@workspace/shared/*`).
+## 2. Prop-Driven State Management
+All data and callbacks must be passed from the **Smart Parent**.
+
+### Pattern:
+```tsx
+// apps/web/src/pages/contact.tsx (Smart Parent)
+const [value, setValue] = useState("");
+return <Input value={value} onChange={(e) => setValue(e.target.value)} />;
+
+// packages/ui/src/Input.tsx (Dumb Primitive)
+export const Input = ({ value, onChange }) => (
+  <input value={value} onChange={onChange} className="..." />
+);
+```
+
+## 3. Path Alias Convention
+Always use `@workspace/` aliases for cross-package imports.
+
+- `@workspace/shared/*`: Types and Utilities.
+- `@workspace/ui/*`: UI Primitives.
+
+## 4. CSS & Styling
+- Use **Tailwind CSS** via the `cn()` utility from `@workspace/shared`.
+- Avoid hardcoded colors; use Tailwind's semantic classes where possible.
+- Shared components should be scanning by the app's `tailwind.config.js`.

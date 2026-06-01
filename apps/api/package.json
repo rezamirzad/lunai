@@ -1,5 +1,5 @@
 {
-  "name": "lunai-backend-template",
+  "name": "@workspace/api",
   "version": "0.1.0",
   "description": "Base backend template for lunai projects",
   "main": "dist/index.js",
