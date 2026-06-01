@@ -1,11 +1,13 @@
 // frontend/src/components/Navbar.tsx
 import { Language, TranslationInterface } from "@workspace/shared";
+import { UserAuth } from "@workspace/ui";
 
 interface NavbarProps {
   currentLang: Language;
   setLang: (lang: Language) => void;
   t: TranslationInterface;
   onViewChange: (view: string) => void;
+  onLogin?: () => void;
 }
 
 export default function Navbar({
@@ -13,6 +15,7 @@ export default function Navbar({
   setLang,
   t,
   onViewChange,
+  onLogin,
 }: NavbarProps) {
   // Helper to handle view switching
   const handleNavClick = (view: string) => {

@@ -389,6 +389,7 @@ export const translations: Record<Language, TranslationInterface> = {
       },
     ],
     recommendedBadge: "Recommandéiert",
+    login: "Umellen",
     serviceList: [
       {
         title: "Next-Gen Performance",
@@ -482,4 +483,6 @@ export const translations: Record<Language, TranslationInterface> = {
       ],
     },
   },
+};
+,
 };
