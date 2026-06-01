@@ -16,11 +16,6 @@ const Pricing = React.lazy(() => import("@/components/Pricing"));
 const Contact = React.lazy(() => import("@/components/Contact"));
 const About = React.lazy(() => import("@/components/About"));
 const Blog = React.lazy(() => import("@/components/Blog"));
-const AdminPanel = React.lazy(() =>
-  import("@/components/AdminPanel").then((mod) => ({
-    default: mod.AdminPanel,
-  })),
-);
 
 interface Post {
   slug: string;
@@ -71,9 +66,6 @@ export default function Home() {
           {activeView === "contact" && <Contact t={t} />}
           {activeView === "about" && <About t={t} />}
           {activeView === "blog" && <Blog t={t} posts={posts} />}
-          {activeView === "admin" && (
-            <AdminPanel isAuthorized={true} onAddPost={setPosts} t={t} />
-          )}
         </Suspense>
       </main>
 
