@@ -35,48 +35,48 @@ export default function Navbar({
 
         {/* Links & Lang Switcher */}
         <div className="flex items-center gap-4 md:gap-6">
-          <div className="flex items-center gap-3 md:gap-6 text-[10px] md:text-sm font-medium text-gray-400">
+          <div className="flex items-center gap-1 md:gap-2 text-[10px] md:text-sm font-medium text-gray-400">
             {/* Swapped <a> for <button> to trigger view changes */}
             <button
               onClick={() => handleNavClick("services")}
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2"
             >
               {t.services}
             </button>
-            <button
+            {/* <button
               onClick={() => handleNavClick("portfolio")}
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2"
             >
               {t.portfolioLabel}
-            </button>
-            <button
+            </button> */}
+            {/* <button
               onClick={() => handleNavClick("pricing")}
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2"
             >
               {t.tarifs}
-            </button>
+            </button> */}
             <button
               onClick={() => handleNavClick("contact")}
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2"
             >
               {t.contact.title}
             </button>
             <button
               onClick={() => handleNavClick("blog")}
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2"
             >
               {t.blog.title}
             </button>
             <button
               onClick={() => handleNavClick("about")}
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2"
             >
               {t.about.title}
             </button>
           </div>
 
-          <UserAuth 
-            label={t.login} 
+          <UserAuth
+            label={t.login}
             onClick={onLogin}
             className="ml-2 md:ml-0"
           />
@@ -86,7 +86,7 @@ export default function Navbar({
               <button
                 key={l}
                 onClick={() => setLang(l)}
-                className={`px-1.5 md:px-2 py-1 text-[10px] md:text-xs rounded transition-all ${
+                className={`min-h-[44px] min-w-[44px] flex items-center justify-center text-[10px] md:text-xs rounded transition-all ${
                   currentLang === l
                     ? "bg-white text-black"
                     : "hover:bg-white/10"

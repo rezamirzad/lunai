@@ -4,6 +4,7 @@
 The LunAI ecosystem operates on a **Hub-and-Spoke** architecture.
 - **Hub (`apps/hub`)**: Central gateway for global orchestration and branding.
 - **Spokes**: Vertical modular applications for specific functionality.
+- **Data Layer (Neon)**: Unified PostgreSQL infrastructure for identity, content delivery, and agentic telemetry.
 
 ## 2. Shared Workspace Standards
 - **Path Aliases**: Mandatory use of `@workspace/*` for shared libraries.

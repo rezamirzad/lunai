@@ -15,14 +15,14 @@ const Footer = ({ t }: { t: TranslationInterface }) => {
       </div>
 
       {/* Navigation Rapide */}
-      <div className="flex flex-wrap justify-center gap-8 text-[10px] font-black uppercase tracking-widest text-gray-400">
-        <a href="#services" className="hover:text-blue-500 transition-colors">
+      <div className="flex flex-wrap justify-center gap-4 text-[10px] font-black uppercase tracking-widest text-gray-400">
+        <a href="#services" className="hover:text-blue-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-4">
           {t.services}
         </a>
-        <a href="#tarifs" className="hover:text-blue-500 transition-colors">
+        <a href="#tarifs" className="hover:text-blue-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-4">
           {t.tarifs}
         </a>
-        <a href="#contact" className="hover:text-blue-500 transition-colors">
+        <a href="#contact" className="hover:text-blue-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-4">
           Contact
         </a>
       </div>

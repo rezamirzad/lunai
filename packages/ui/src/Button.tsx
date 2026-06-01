@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '@workspace/shared';
 
 export const buttonVariants = {
-  base: 'font-black uppercase tracking-widest transition-all duration-300 disabled:opacity-50 inline-block text-center',
+  base: 'font-black uppercase tracking-widest transition-all duration-300 disabled:opacity-50 inline-flex items-center justify-center text-center min-h-[44px] min-w-[44px]',
   variant: {
     primary: 'bg-white text-black hover:bg-blue-500 hover:text-white',
     secondary: 'bg-blue-500 text-white hover:bg-blue-600',
@@ -19,10 +19,11 @@ export const buttonVariants = {
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: keyof typeof buttonVariants.variant;
   size?: keyof typeof buttonVariants.size;
+  mobileFullWidth?: boolean;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', ...props }, ref) => {
+  ({ className, variant = 'primary', size = 'md', mobileFullWidth = false, ...props }, ref) => {
     return (
       <button
         ref={ref}
@@ -30,6 +31,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           buttonVariants.base,
           buttonVariants.variant[variant],
           buttonVariants.size[size],
+          mobileFullWidth && 'w-full md:w-auto',
           className
         )}
         {...props}

@@ -58,17 +58,17 @@ export default function Blog({ t, posts }: { t: TranslationInterface; posts: Pos
         <button
           disabled={currentPage === 1}
           onClick={() => setCurrentPage((prev) => prev - 1)}
-          className="px-4 py-2 bg-white/10 rounded disabled:opacity-50"
+          className="px-6 py-3 min-h-[44px] min-w-[44px] bg-white/10 rounded disabled:opacity-50 flex items-center justify-center transition-all hover:bg-white/20"
         >
           Previous
         </button>
-        <span className="py-2">
+        <span className="py-3 flex items-center">
           Page {currentPage} of {totalPages}
         </span>
         <button
           disabled={currentPage === totalPages}
           onClick={() => setCurrentPage((prev) => prev + 1)}
-          className="px-4 py-2 bg-white/10 rounded disabled:opacity-50"
+          className="px-6 py-3 min-h-[44px] min-w-[44px] bg-white/10 rounded disabled:opacity-50 flex items-center justify-center transition-all hover:bg-white/20"
         >
           Next
         </button>

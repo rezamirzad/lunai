@@ -1,24 +1,24 @@
 import React from 'react';
 import { cn } from '@workspace/shared';
+import { Container } from './Container';
 
 export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   containerSize?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  clean?: boolean;
 }
 
-export const Section = ({ className, containerSize = 'md', children, ...props }: SectionProps) => {
-  const containerSizes = {
-    sm: 'max-w-xl',
-    md: 'max-w-4xl',
-    lg: 'max-w-6xl',
-    xl: 'max-w-7xl',
-    full: 'max-w-full'
-  };
-
+export const Section = ({ 
+  className, 
+  containerSize = 'md', 
+  clean = false,
+  children, 
+  ...props 
+}: SectionProps) => {
   return (
-    <section className={cn('py-24 px-6', className)} {...props}>
-      <div className={cn('mx-auto', containerSizes[containerSize as keyof typeof containerSizes] || '')}>
+    <section className={cn('py-12 md:py-24', className)} {...props}>
+      <Container size={containerSize} clean={clean}>
         {children}
-      </div>
+      </Container>
     </section>
   );
 };

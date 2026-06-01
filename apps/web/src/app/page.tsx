@@ -1,19 +1,26 @@
 // frontend/src/app/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { translations } from "@/lib/translations";
 import { Language } from "@workspace/shared";
 import { fetchBlogPosts } from "./actions"; // Import the action
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import Portfolio from "@/components/Portfolio";
-import Pricing from "@/components/Pricing";
-import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import About from "@/components/About";
-import Blog from "@/components/Blog";
+
+// Lazy load section components for better mobile performance
+const Hero = React.lazy(() => import("@/components/Hero"));
+const Services = React.lazy(() => import("@/components/Services"));
+const Portfolio = React.lazy(() => import("@/components/Portfolio"));
+const Pricing = React.lazy(() => import("@/components/Pricing"));
+const Contact = React.lazy(() => import("@/components/Contact"));
+const About = React.lazy(() => import("@/components/About"));
+const Blog = React.lazy(() => import("@/components/Blog"));
+const AdminPanel = React.lazy(() =>
+  import("@/components/AdminPanel").then((mod) => ({
+    default: mod.AdminPanel,
+  })),
+);
 
 interface Post {
   slug: string;
@@ -22,6 +29,12 @@ interface Post {
   description: string;
   content: string;
 }
+
+const Loading = () => (
+  <div className="flex items-center justify-center min-h-[400px]">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+  </div>
+);
 
 export default function Home() {
   const [lang, setLang] = useState<Language>("FR");
@@ -41,7 +54,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
-      {/* Pass onViewChange to Navbar to allow component switching */}
       <Navbar
         currentLang={lang}
         setLang={setLang}
@@ -51,13 +63,18 @@ export default function Home() {
       />
 
       <main className="pt-16">
-        {activeView === "home" && <Hero t={t} />}
-        {activeView === "services" && <Services t={t} />}
-        {activeView === "portfolio" && <Portfolio t={t} />}
-        {activeView === "pricing" && <Pricing t={t} />}
-        {activeView === "contact" && <Contact t={t} />}
-        {activeView === "about" && <About t={t} />}
-        {activeView === "blog" && <Blog t={t} posts={posts} />}{" "}
+        <Suspense fallback={<Loading />}>
+          {activeView === "home" && <Hero t={t} />}
+          {activeView === "services" && <Services t={t} />}
+          {activeView === "portfolio" && <Portfolio t={t} />}
+          {activeView === "pricing" && <Pricing t={t} />}
+          {activeView === "contact" && <Contact t={t} />}
+          {activeView === "about" && <About t={t} />}
+          {activeView === "blog" && <Blog t={t} posts={posts} />}
+          {activeView === "admin" && (
+            <AdminPanel isAuthorized={true} onAddPost={setPosts} t={t} />
+          )}
+        </Suspense>
       </main>
 
       <Footer t={t} />
