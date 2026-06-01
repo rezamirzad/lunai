@@ -2,7 +2,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { translations, Language } from "@/lib/translations";
+import { translations } from "@/lib/translations";
+import { Language } from "@workspace/shared";
 import { fetchBlogPosts } from "./actions"; // Import the action
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";

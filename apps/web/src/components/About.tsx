@@ -1,5 +1,5 @@
 "use client";
-import { TranslationInterface } from "@/lib/translations";
+import { TranslationInterface } from "@workspace/shared";
 
 interface AboutProps {
   t: TranslationInterface;

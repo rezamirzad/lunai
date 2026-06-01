@@ -1,5 +1,5 @@
 import React from "react";
-import { TranslationInterface } from "@/lib/translations";
+import { TranslationInterface } from "@workspace/shared";
 
 const Footer = ({ t }: { t: TranslationInterface }) => {
   return (

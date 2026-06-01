@@ -1,56 +1,4 @@
-export type Language = "FR" | "EN" | "DE" | "LU";
-
-export interface TranslationInterface {
-  heroTitle: string;
-  heroSub: string;
-  cta: string;
-  services: string;
-  tarifs: string;
-  techBadge: string;
-  portfolioLabel: string;
-  portfolioTitle: string;
-  projects: {
-    title: string;
-    desc: string;
-    link: string;
-  }[];
-  serviceList: {
-    title: string;
-    desc: string;
-  }[];
-  pricing: {
-    name: string;
-    price: string;
-    ideal: string;
-    features: string[];
-  }[];
-  maintenance: {
-    title: string;
-    price: string;
-    features: string[];
-  };
-  recommendedBadge: string;
-  contact: {
-    title: string;
-    name: string;
-    email: string;
-    message: string;
-    send: string;
-    success: string;
-  };
-  about: {
-    title: string;
-    content: string[];
-  };
-  blog: {
-    title: string;
-    posts: {
-      title: string;
-      date: string;
-      desc: string;
-    }[];
-  };
-}
+import { Language, TranslationInterface } from "@workspace/shared";
 
 export const translations: Record<Language, TranslationInterface> = {
   FR: {
@@ -156,7 +104,7 @@ export const translations: Record<Language, TranslationInterface> = {
       success: "Votre message a été transmis avec succès !",
     },
     about: {
-      title: "A propos",
+      title: "À propos",
       content: [
         "Au cœur de notre vision, nous croyons que les entreprises les plus performantes sont celles qui reposent sur des opérations fluides et évolutives. Nous sommes un studio de venture propulsé par l'IA qui déploie des frameworks autonomes spécialisés pour accélérer la croissance.",
         "En intégrant une suite d'agents haute performance — allant des architectes backend aux stratèges marketing transfrontaliers — nous permettons aux fondateurs et aux opérateurs de se concentrer sur la vision plutôt que sur l'exécution.",

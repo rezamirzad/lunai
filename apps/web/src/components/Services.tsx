@@ -1,4 +1,4 @@
-import { TranslationInterface } from "@/lib/translations";
+import { TranslationInterface } from "@workspace/shared";
 
 export default function Services({ t }: { t: TranslationInterface }) {
   if (!t) return null;

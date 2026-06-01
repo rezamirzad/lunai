@@ -1,5 +1,5 @@
 // frontend/src/components/Navbar.tsx
-import { Language, TranslationInterface } from "@/lib/translations";
+import { Language, TranslationInterface } from "@workspace/shared";
 
 interface NavbarProps {
   currentLang: Language;
