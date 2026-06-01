@@ -8,19 +8,35 @@ const blogDirectory = path.join(process.cwd(), "content/blog");
 
 export function getSortedPostsData() {
   try {
-    console.log("Current working directory:", process.cwd());
-    console.log("Resolved blog directory:", blogDirectory);
-    
-    if (!fs.existsSync(blogDirectory)) {
-      console.error("Blog directory does not exist!");
+    const cwd = process.cwd();
+    // Try both possible locations in a Vercel monorepo
+    const pathsToTry = [
+      path.join(cwd, "content/blog"),            // App root
+      path.join(cwd, "apps/web/content/blog"),   // Monorepo root
+    ];
+
+    let finalDirectory = "";
+    for (const p of pathsToTry) {
+      console.log(`Checking path: ${p}`);
+      if (fs.existsSync(p)) {
+        finalDirectory = p;
+        break;
+      }
+    }
+
+    if (!finalDirectory) {
+      console.error("CRITICAL: Blog directory not found in any of the expected locations!");
+      console.error("CWD was:", cwd);
       return [];
     }
 
-    const fileNames = fs.readdirSync(blogDirectory);
+    console.log("Using blog directory:", finalDirectory);
+
+    const fileNames = fs.readdirSync(finalDirectory);
     const allPostsData = fileNames
-      .filter((fileName) => fileName.endsWith(".md")) // Only process .md files
+      .filter((fileName) => fileName.endsWith(".md"))
       .map((fileName) => {
-        const fullPath = path.join(blogDirectory, fileName);
+        const fullPath = path.join(finalDirectory, fileName);
         const fileContents = fs.readFileSync(fullPath, "utf8");
         const { data, content } = matter(fileContents);
         return {
@@ -32,7 +48,7 @@ export function getSortedPostsData() {
         };
       });
 
-    // Sort posts by date descending
+    console.log(`Successfully loaded ${allPostsData.length} blog posts.`);
     return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
   } catch (error) {
     console.error("Error reading blog posts:", error);
