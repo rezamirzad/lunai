@@ -18,7 +18,8 @@
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "@workspace/shared": "*"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
