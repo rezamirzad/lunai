@@ -8,6 +8,12 @@ export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
   gap?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12;
 }
 
+/**
+ * Grid Component
+ * 
+ * Flexible CSS Grid wrapper enforcing mobile-first responsive column counts.
+ * Aligns with docs/mobile-first-architecture.md.
+ */
 export const Grid = ({ 
   className, 
   cols = 1, 

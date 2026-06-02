@@ -8,6 +8,7 @@ Establish the theme configuration (colors, typography, spacing) within packages/
 Atomic Component Alignment:
 Map legacy atomic primitives (Button, Input, Card, etc.) in @workspace/ui to their Neon counterparts.
 "Dumb" Component Wrapping: Ensure all Neon components remain strictly prop-driven. Do not import internal Neon logic directly into application pages; route all requests through the @workspace/ui wrapper components to maintain decoupling.
+Make a report of ALL the neon ui atomic components and add ons
 Responsive Harmonization:
 As part of the refactoring, enforce the mobile-first strategy (Task 260601-04) within every Neon component integration.
 Compliance & Documentation:

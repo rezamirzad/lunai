@@ -27,3 +27,8 @@ Suggested Agent Allocation:
 ArchitectAgent: To design the grid layout and sidebar logic to handle category filtering.
 DocumentationAgent: To define the visual specs and new prop contracts for the decoupled components.
 ProjectManagerAgent: To orchestrate the refactoring of the existing file-based blog component into this new database-driven grid layout.
+
+Suggested Agent Allocation:
+ArchitectAgent: To design the grid system (Content + Sidebar) and ensure the responsiveness of the TOC.
+DocumentationAgent: To define the API contracts for fetching a single post by slug from the database.
+ProjectManagerAgent: To oversee the transition from the grid-based blog stream (Task 260601-06) to this individual view.

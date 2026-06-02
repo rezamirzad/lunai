@@ -1,78 +1,124 @@
 "use client";
-import { useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm"; // Adds support for tables, task lists, etc.
-import rehypeRaw from "rehype-raw"; // Adds support for embedded HTML
-import rehypeHighlight from "rehype-highlight"; // Adds syntax highlighting
-import "highlight.js/styles/github-dark.css"; // Theme for code blocks
-
+import { useState, useMemo } from "react";
 import { TranslationInterface } from "@workspace/shared";
-import { Section, Typography } from "@workspace/ui";
+import { Grid } from "@workspace/ui";
+import { BlogLayout } from "./BlogLayout";
+import { BlogHeader } from "./BlogHeader";
+import { BlogSidebar } from "./BlogSidebar";
+import { BlogHeroCard } from "./BlogHeroCard";
+import { BlogStreamItem } from "./BlogStreamItem";
 
-interface Post {
+export interface Post {
   slug: string;
   title: string;
   date: string;
   description: string;
   content: string;
+  category?: string;
+  coverImage?: string;
+  author?: string;
+  featured?: boolean;
 }
 
-export default function Blog({ t, posts }: { t: TranslationInterface; posts: Post[] }) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 5;
+export default function Blog({
+  t,
+  posts,
+}: {
+  t: TranslationInterface;
+  posts: Post[];
+}) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const filteredPosts = useMemo(() => {
+    return posts
+      .filter((post) => {
+        const matchesSearch =
+          post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          post.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          post.content.toLowerCase().includes(searchTerm.toLowerCase());
+
+        const matchesCategory = selectedCategory
+          ? (post.category || "General") === selectedCategory
+          : true;
+
+        return matchesSearch && matchesCategory;
+      })
+      .sort((a, b) => {
+        // First sort by featured status
+        if (a.featured && !b.featured) return -1;
+        if (!a.featured && b.featured) return 1;
+        // Then sort by date (newest first)
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      });
+  }, [posts, searchTerm, selectedCategory]);
+
+  const mappedPosts = filteredPosts.map((post) => ({
+    id: post.slug,
+    title: post.title,
+    excerpt: post.description || post.content.substring(0, 150) + "...",
+    coverImage:
+      post.coverImage ||
+      "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=3174&auto=format&fit=crop",
+    category: post.category || "General",
+    date: post.date,
+    author: post.author || "Lunaris Team",
+    featured: post.featured,
+  }));
+
+  const featuredPosts = mappedPosts.slice(0, 2);
+  const streamPosts = mappedPosts.slice(2);
 
   return (
-    <Section id="blog" containerSize="md" className="bg-black text-white">
-      <Typography as="h1" className="text-4xl font-bold mb-10">
-        {t?.blog?.title || "Blog"}
-      </Typography>
+    <BlogLayout
+      header={
+        <BlogHeader searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+      }
+      sidebar={
+        <BlogSidebar
+          selectedCategory={selectedCategory}
+          onSelectCategory={setSelectedCategory}
+        />
+      }
+    >
+      <div className="flex flex-col gap-12">
+        {/* Feature Grid (Top) */}
+        {featuredPosts.length > 0 && (
+          <Grid cols={1} tabletCols={2} gap={8}>
+            {featuredPosts.map((post) => (
+              <BlogHeroCard key={post.id} post={post} featured={true} />
+            ))}
+          </Grid>
+        )}
 
-      {currentPosts.map((post) => (
-        <article
-          key={post.slug}
-          className="mb-12 border-b border-white/10 pb-10"
-        >
-          <span className="text-sm text-gray-500">{post.date}</span>
-          <Typography as="h2" className="text-3xl font-bold mt-1 mb-2">
-            {post.title}
-          </Typography>
-
-          {/* The 'prose' class from @tailwindcss/typography handles the styling */}
-          <div className="prose prose-invert prose-lg max-w-none mt-6">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeRaw, rehypeHighlight]}
-            >
-              {post.content}
-            </ReactMarkdown>
+        {/* Vertical Stream (Bottom) */}
+        {streamPosts.length > 0 && (
+          <div className="flex flex-col gap-10 border-t border-white/10 pt-10">
+            {streamPosts.map((post, index) => (
+              <BlogStreamItem
+                key={post.id}
+                post={post}
+                layout={index % 2 === 0 ? "right-image" : "text-only"}
+              />
+            ))}
           </div>
-        </article>
-      ))}
+        )}
 
-      <div className="flex gap-4 mt-8">
-        <button
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage((prev) => prev - 1)}
-          className="px-6 py-3 min-h-[44px] min-w-[44px] bg-white/10 rounded disabled:opacity-50 flex items-center justify-center transition-all hover:bg-white/20"
-        >
-          Previous
-        </button>
-        <span className="py-3 flex items-center">
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((prev) => prev + 1)}
-          className="px-6 py-3 min-h-[44px] min-w-[44px] bg-white/10 rounded disabled:opacity-50 flex items-center justify-center transition-all hover:bg-white/20"
-        >
-          Next
-        </button>
+        {mappedPosts.length === 0 && (
+          <div className="text-center py-20 text-[#A1A1AA]">
+            <p className="text-xl">No posts found matching your criteria.</p>
+            <button
+              onClick={() => {
+                setSearchTerm("");
+                setSelectedCategory(null);
+              }}
+              className="mt-4 text-teal-500 hover:text-teal-400 transition-colors"
+            >
+              Clear filters
+            </button>
+          </div>
+        )}
       </div>
-    </Section>
+    </BlogLayout>
   );
 }

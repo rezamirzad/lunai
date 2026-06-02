@@ -23,6 +23,10 @@ interface Post {
   date: string;
   description: string;
   content: string;
+  category?: string;
+  coverImage?: string;
+  author?: string;
+  featured?: boolean;
 }
 
 const Loading = () => (

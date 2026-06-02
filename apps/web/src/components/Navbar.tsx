@@ -1,6 +1,10 @@
+"use client";
+
 // frontend/src/components/Navbar.tsx
+import { useState } from "react";
 import { Language, TranslationInterface } from "@workspace/shared";
 import { UserAuth } from "@workspace/ui";
+import { MobileDrawer } from "./MobileDrawer";
 
 interface NavbarProps {
   currentLang: Language;
@@ -17,6 +21,8 @@ export default function Navbar({
   onViewChange,
   onLogin,
 }: NavbarProps) {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   // Helper to handle view switching
   const handleNavClick = (view: string) => {
     onViewChange(view);
@@ -28,76 +34,90 @@ export default function Navbar({
         {/* Logo - click to go home */}
         <button
           onClick={() => handleNavClick("home")}
-          className="text-xl font-bold tracking-tighter"
+          className="text-xl font-black tracking-tighter hover:text-teal-500 transition-colors"
         >
           {t.heroTitle}
         </button>
 
-        {/* Links & Lang Switcher */}
-        <div className="flex items-center gap-4 md:gap-6">
-          <div className="flex items-center gap-1 md:gap-2 text-[10px] md:text-sm font-medium text-gray-400">
-            {/* Swapped <a> for <button> to trigger view changes */}
+        {/* Desktop Links (md+) */}
+        <div className="hidden md:flex items-center gap-8">
+          <div className="flex items-center gap-1 text-sm font-bold text-zinc-400 uppercase tracking-widest">
             <button
               onClick={() => handleNavClick("services")}
-              className="hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2"
+              className="hover:text-white transition-colors h-11 px-4"
             >
               {t.services}
             </button>
-            {/* <button
-              onClick={() => handleNavClick("portfolio")}
-              className="hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2"
-            >
-              {t.portfolioLabel}
-            </button> */}
-            {/* <button
-              onClick={() => handleNavClick("pricing")}
-              className="hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2"
-            >
-              {t.tarifs}
-            </button> */}
             <button
               onClick={() => handleNavClick("contact")}
-              className="hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2"
+              className="hover:text-white transition-colors h-11 px-4"
             >
               {t.contact.title}
             </button>
             <button
               onClick={() => handleNavClick("blog")}
-              className="hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2"
+              className="hover:text-white transition-colors h-11 px-4"
             >
               {t.blog.title}
             </button>
             <button
               onClick={() => handleNavClick("about")}
-              className="hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2"
+              className="hover:text-white transition-colors h-11 px-4"
             >
               {t.about.title}
             </button>
           </div>
 
-          <UserAuth
-            label={t.login}
-            onClick={onLogin}
-            className="ml-2 md:ml-0"
-          />
+          <div className="h-6 w-px bg-white/10 mx-2" />
 
-          <div className="flex bg-white/5 rounded-lg p-1 border border-white/10 shrink-0">
-            {(["FR", "EN", "DE", "LU"] as Language[]).map((l) => (
-              <button
-                key={l}
-                onClick={() => setLang(l)}
-                className={`min-h-[44px] min-w-[44px] flex items-center justify-center text-[10px] md:text-xs rounded transition-all ${
-                  currentLang === l
-                    ? "bg-white text-black"
-                    : "hover:bg-white/10"
-                }`}
-              >
-                {l}
-              </button>
-            ))}
+          <div className="flex items-center gap-4">
+            {/* Lang Switcher (Desktop) */}
+            <div className="flex bg-white/5 rounded-lg p-1 border border-white/10">
+              {(["EN", "FR", "DE", "LU"] as Language[]).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setLang(l)}
+                  className={`h-8 w-10 flex items-center justify-center text-[10px] font-bold rounded transition-all ${
+                    currentLang === l
+                      ? "bg-white text-black"
+                      : "text-zinc-500 hover:bg-white/10"
+                  }`}
+                >
+                  {l}
+                </button>
+              ))}
+            </div>
+
+            <UserAuth
+              label={t.login}
+              onClick={onLogin}
+              className="h-10 px-6 text-xs bg-white text-black hover:bg-zinc-200 border-none rounded-lg"
+            />
           </div>
         </div>
+
+        {/* Hamburger Toggle (Mobile < md) */}
+        <button
+          onClick={() => setIsDrawerOpen(true)}
+          className="md:hidden w-11 h-11 flex flex-col items-center justify-center gap-1.5 text-white"
+          aria-label="Open menu"
+        >
+          <span className="w-6 h-0.5 bg-current rounded-full" />
+          <span className="w-6 h-0.5 bg-current rounded-full" />
+          <span className="w-6 h-0.5 bg-current rounded-full" />
+        </button>
       </div>
+
+      {/* Mobile Drawer */}
+      <MobileDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        currentLang={currentLang}
+        setLang={setLang}
+        t={t}
+        onViewChange={onViewChange}
+        onLogin={onLogin}
+      />
     </nav>
   );
 }

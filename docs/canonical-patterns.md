@@ -43,13 +43,21 @@ All components must be designed for mobile first, then scaled up.
 ### Universal Responsiveness Patterns
 - **Touch Targets**: All interactive elements must maintain a minimum hit area of **44px x 44px**.
 - **Fluid Layouts**: Use the `@workspace/ui` `Grid` and `Container` components to ensure layout fluidity.
-- **Stateless Logic**: Layout behavior should be controlled via props (e.g., `mobileFullWidth`) rather than internal window listeners.
+- **Responsive-Native**: Use CSS media queries (`md:`, `lg:`) to control visibility and layout state. Avoid `isMobile` JS logic that conditionally removes functional components from the DOM.
 - **Complex UI on Mobile**: 
     - **Tables**: Use horizontal scrolling with a "Swipe for more" indicator or card-based list view.
     - **Dashboards**: Stack widgets vertically on mobile; use the `Grid` component's `cols={1}` default.
     - **Navigation**: Use a drawer or "hamburger" menu for primary navigation on mobile screens.
 
-## 6. Device Testing Matrix
+## 6. The "Never-Hide-Functionality" Principle
+Functionality must never be sacrificed for screen space.
+
+### Core Rules:
+- **Functional Parity**: If a feature (e.g., Language Selection, Search, User Settings) exists on desktop, it **must** be available on mobile.
+- **Reorganization over Removal**: Use drawers, accordions, or modal overlays to house complex functional groups on small screens.
+- **No Mobile-Only Silos**: Avoid creating "mobile-only" versions of pages. Use responsive-native components that adapt their presentation while maintaining the same underlying state and logic.
+
+## 7. Device Testing Matrix
 Automated regression testing via Playwright must include screenshot verification for the following targets:
 
 | Device | Viewport | Target |
@@ -59,7 +67,27 @@ Automated regression testing via Playwright must include screenshot verification
 | **Surface Pro** | 912 x 1368 | Large Tablet / Hybrid |
 | **Standard Desktop** | 1440 x 900 | Desktop Target |
 
-## 7. CSS & Styling
+## 8. CSS & Styling
 - Use **Tailwind CSS** via the `cn()` utility from `@workspace/shared`.
 - Avoid hardcoded colors; use Tailwind's semantic classes where possible.
 - Shared components should be scanning by the app's `tailwind.config.js`.
+
+## 9. Extending Neon UI Components
+When wrapping or extending Neon UI components within `@workspace/ui`, strictly adhere to these standards to maintain ecosystem integrity.
+
+### 9.1 The "Teal & Black" Visual Standard
+All extensions must preserve the high-contrast dark aesthetic defined in `docs/neon-ui-architecture.md`.
+- **Primary Action**: Always use `brand-primary` (Teal 500) for primary buttons, active states, and highlights.
+- **Surface Layering**: Use `background-primary` (Black) for the base and `background-secondary` (Dark Gray) for nested cards or surfaces.
+- **Accents**: Use `brand-accent` (Teal 400) for hover states and subtle interactive feedback.
+
+### 9.2 The "Dumb" Wrapping Protocol
+To ensure architectural decoupling and portability:
+- **Strict Prop Injection**: All styles and behaviors must be controlled via props. Never hardcode application-specific logic inside the wrapper.
+- **Class Merging**: Always use the `cn()` utility to allow consumers to pass additional Tailwind classes without breaking the base design.
+- **Opaque Internals**: Avoid exposing Neon-specific types or hooks directly to the consumer; map them to clean, workspace-aligned interfaces.
+
+### 9.3 Mobile-First Extension Guidelines
+- **Hit Area Persistence**: Ensure any added interactive elements (links, icons, toggles) maintain a minimum **44px** hit area.
+- **Fluid Overrides**: Prefer percentage-based widths or flexbox over fixed pixel values in extended layouts.
+- **Contextual Props**: Use semantic boolean props (e.g., `isFullWidthOnMobile`) to trigger responsive layout shifts instead of relying on implicit media queries within the component.

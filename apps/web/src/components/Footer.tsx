@@ -3,51 +3,42 @@ import { TranslationInterface } from "@workspace/shared";
 
 const Footer = ({ t }: { t: TranslationInterface }) => {
   return (
-    <footer className="py-20 flex flex-col items-center gap-12 border-t border-gray-900 bg-black">
+    <footer className="py-24 flex flex-col items-center gap-16 border-t border-white/5 bg-black">
       {/* Section Logo & Slogan */}
       <div className="text-center">
-        <div className="text-white text-xl font-black tracking-tighter mb-2">
-          <span className="text-blue-500">LunAI</span>
+        <div className="text-white text-2xl font-black tracking-tighter mb-4">
+          <span className="text-teal-500">LunAI</span>
         </div>
-        <p className="text-[10px] text-gray-500 uppercase tracking-[0.3em]">
+        <p className="text-xs text-zinc-500 uppercase tracking-[0.3em] font-bold">
           Luxembourg Digital Craft
         </p>
       </div>
 
       {/* Navigation Rapide */}
-      <div className="flex flex-wrap justify-center gap-4 text-[10px] font-black uppercase tracking-widest text-gray-400">
-        <a href="#services" className="hover:text-blue-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-4">
-          {t.services}
-        </a>
-        <a href="#tarifs" className="hover:text-blue-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-4">
-          {t.tarifs}
-        </a>
-        <a href="#contact" className="hover:text-blue-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-4">
-          Contact
-        </a>
-      </div>
+      <nav className="flex flex-wrap justify-center gap-8 md:gap-12">
+        {[
+          { href: "#services", label: t.services },
+          { href: "#contact", label: t.contact.title },
+          { href: "#blog", label: t.blog.title },
+          { href: "#about", label: t.about.title },
+        ].map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            className="text-[10px] md:text-xs font-black uppercase tracking-widest text-zinc-400 hover:text-teal-500 transition-colors min-h-[44px] flex items-center justify-center"
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
 
-      {/* Tech Stack & Copyright */}
+      {/* Copyright */}
       <div className="flex flex-col items-center gap-6">
-        {/* <div className="flex justify-center gap-6 items-center">
-          <div className="text-[9px] font-bold text-zinc-700 uppercase tracking-widest">
-            Next.js 14
-          </div>
-          <div className="w-px h-2 bg-zinc-800" />
-          <div className="text-[9px] font-bold text-zinc-700 uppercase tracking-widest">
-            Tailwind CSS
-          </div>
-          <div className="w-px h-2 bg-zinc-800" />
-          <div className="text-[9px] font-bold text-zinc-700 uppercase tracking-widest">
-            TypeScript
-          </div>
-        </div> */}
-
-        <div className="text-[9px] text-zinc-600 uppercase tracking-[0.2em] font-medium">
+        <div className="text-[10px] text-zinc-600 uppercase tracking-[0.2em] font-bold">
           © {new Date().getFullYear()}{" "}
           <span className="text-zinc-500">LunAI</span> — Part of{" "}
-          <span className="text-zinc-400 font-bold text-blue-500/80">
-            LunAI
+          <span className="text-zinc-400 font-black text-teal-500/80">
+            LUNARIS
           </span>
         </div>
       </div>

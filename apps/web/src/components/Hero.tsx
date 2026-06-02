@@ -6,8 +6,8 @@ export default function Hero({ t }: { t: TranslationInterface }) {
   if (!t) return null;
 
   return (
-    <Section 
-      containerSize="xl" 
+    <Section
+      containerSize="xl"
       className="relative min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden pt-20 px-0"
     >
       {/* Increased radial glow for a larger ambient feel */}
@@ -16,9 +16,7 @@ export default function Hero({ t }: { t: TranslationInterface }) {
       <div className="relative z-10 text-center">
         {/* Branding Badge with dynamic translation */}
         <div className="inline-block px-6 py-2 mb-10 rounded-full border border-zinc-800 bg-zinc-950/50 backdrop-blur-sm animate-fade-in">
-          <Typography variant="badge">
-            {t.techBadge}
-          </Typography>
+          <Typography variant="badge">{t.techBadge}</Typography>
         </div>
 
         {/* Massive Typography for brand authority */}
@@ -42,7 +40,7 @@ export default function Hero({ t }: { t: TranslationInterface }) {
               buttonVariants.base,
               buttonVariants.variant.primary,
               buttonVariants.size.lg,
-              "w-full md:w-auto"
+              "w-full md:w-auto",
             )}
           >
             {t.cta}

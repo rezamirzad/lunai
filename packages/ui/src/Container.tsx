@@ -6,6 +6,12 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   clean?: boolean; // If true, removes default padding
 }
 
+/**
+ * Container Component
+ * 
+ * Enforces standardized max-widths and responsive padding as per Neon UI visual standards.
+ * Aligns with docs/mobile-first-architecture.md.
+ */
 export const Container = ({ 
   className, 
   size = 'md', 
