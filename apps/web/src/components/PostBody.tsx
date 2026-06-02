@@ -15,9 +15,9 @@ export const PostBody: React.FC<PostBodyProps> = ({ content }) => {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight, rehypeRaw]}
         components={{
-          h2: ({ node, ...props }) => {
-            const id = props.children?.toString().toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
-            return <h2 id={id} {...props} />;
+          h2: ({ node, children, ...props }) => {
+            const id = children?.toString().toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
+            return <h2 id={id} {...props}>{children}</h2>;
           },
           pre: ({ node, ...props }) => (
             <div className="relative group">

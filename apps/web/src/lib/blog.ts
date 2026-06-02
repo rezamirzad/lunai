@@ -66,8 +66,8 @@ export function getPostData(slug: string) {
     const { data, content } = matter(fileContents);
 
     // Basic TOC extraction
-    const headingLines = content.split("\n").filter(line => line.startsWith("## "));
-    const toc = headingLines.map(line => {
+    const headingLines = content.split("\n").filter((line: string) => line.startsWith("## "));
+    const toc = headingLines.map((line: string) => {
       const text = line.replace(/^##\s+/, "");
       const id = text.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
       return { id, text, level: 2 };

@@ -8,9 +8,9 @@ import { MobileDrawer } from "./MobileDrawer";
 
 interface NavbarProps {
   currentLang: Language;
-  setLang: (lang: Language) => void;
+  setLang?: (lang: Language) => void;
   t: TranslationInterface;
-  onViewChange: (view: string) => void;
+  onViewChange?: (view: string) => void;
   onLogin?: () => void;
 }
 
@@ -25,7 +25,12 @@ export default function Navbar({
 
   // Helper to handle view switching
   const handleNavClick = (view: string) => {
-    onViewChange(view);
+    if (onViewChange) {
+      onViewChange(view);
+    } else {
+      // Fallback navigation if no handler provided (e.g. from a Server Component page like blog detail)
+      window.location.href = view === "home" ? "/" : `/#${view}`;
+    }
   };
 
   return (
@@ -76,7 +81,7 @@ export default function Navbar({
               {(["EN", "FR", "DE", "LU"] as Language[]).map((l) => (
                 <button
                   key={l}
-                  onClick={() => setLang(l)}
+                  onClick={() => setLang?.(l)}
                   className={`h-8 w-10 flex items-center justify-center text-[10px] font-bold rounded transition-all ${
                     currentLang === l
                       ? "bg-white text-black"

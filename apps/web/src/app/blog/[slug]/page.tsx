@@ -42,10 +42,7 @@ export default async function BlogPostPage({
       <ViewTracker slug={post.slug} />
       <Navbar
         currentLang="FR"
-        setLang={() => {}} // Disabled on detail page for now
         t={t}
-        onViewChange={() => {}} // Navigation handled by standard links
-        onLogin={() => {}}
       />
 
       <main className="pt-16">

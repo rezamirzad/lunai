@@ -8,9 +8,9 @@ interface MobileDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   currentLang: Language;
-  setLang: (lang: Language) => void;
+  setLang?: (lang: Language) => void;
   t: TranslationInterface;
-  onViewChange: (view: string) => void;
+  onViewChange?: (view: string) => void;
   onLogin?: () => void;
 }
 
@@ -24,7 +24,11 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
   onLogin,
 }) => {
   const handleNavClick = (view: string) => {
-    onViewChange(view);
+    if (onViewChange) {
+      onViewChange(view);
+    } else {
+      window.location.href = view === "home" ? "/" : `/#${view}`;
+    }
     onClose();
   };
 
@@ -97,7 +101,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 {(["EN", "FR", "DE", "LU"] as Language[]).map((l) => (
                   <button
                     key={l}
-                    onClick={() => setLang(l)}
+                    onClick={() => setLang?.(l)}
                     className={`h-11 flex items-center justify-center text-xs font-bold rounded-lg transition-all ${
                       currentLang === l
                         ? "bg-white text-black shadow-lg"
