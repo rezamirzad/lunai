@@ -12,6 +12,8 @@ interface MobileDrawerProps {
   t: TranslationInterface;
   onViewChange?: (view: string) => void;
   onLogin?: () => void;
+  isLoggedIn?: boolean;
+  userRole?: "admin" | "client";
 }
 
 export const MobileDrawer: React.FC<MobileDrawerProps> = ({
@@ -22,6 +24,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
   t,
   onViewChange,
   onLogin,
+  isLoggedIn = false,
+  userRole,
 }) => {
   const handleNavClick = (view: string) => {
     if (onViewChange) {
@@ -31,6 +35,14 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
     }
     onClose();
   };
+
+  const loginLabel = isLoggedIn
+    ? userRole === "admin"
+      ? "Admin"
+      : userRole === "client"
+      ? "Client"
+      : t.login
+    : t.login;
 
   return (
     <>
@@ -75,6 +87,30 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">
               Navigation
             </p>
+            {isLoggedIn && userRole === "admin" && (
+              <>
+                <button
+                  onClick={() => handleNavClick("admin/dashboard")}
+                  className="text-2xl font-black text-white hover:text-teal-500 transition-colors text-left"
+                >
+                  Admin
+                </button>
+                <button
+                  onClick={() => (window.location.href = "/apps/fndr")}
+                  className="text-2xl font-black text-teal-500 hover:text-teal-400 transition-colors text-left"
+                >
+                  FNDR
+                </button>
+              </>
+            )}
+            {isLoggedIn && userRole === "client" && (
+              <button
+                onClick={() => handleNavClick("client/dashboard")}
+                className="text-2xl font-black text-white hover:text-teal-500 transition-colors text-left"
+              >
+                Client
+              </button>
+            )}
             {[
               { id: "services", label: t.services },
               { id: "contact", label: t.contact.title },
@@ -119,7 +155,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 Account
               </p>
               <UserAuth
-                label={t.login}
+                label={loginLabel}
                 onClick={() => {
                   onLogin?.();
                   onClose();

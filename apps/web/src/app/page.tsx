@@ -7,6 +7,8 @@ import { Language } from "@workspace/shared";
 import { fetchBlogPosts } from "./actions"; // Import the action
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/context/AuthContext"; // Import useAuth
+import { useRouter } from 'next/navigation';
 
 // Lazy load section components for better mobile performance
 const Hero = React.lazy(() => import("@/components/Hero"));
@@ -40,11 +42,8 @@ export default function Home() {
   const [activeView, setActiveView] = useState("home"); // Track active view
   const t = translations[lang];
   const [posts, setPosts] = useState<Post[]>([]);
-
-  const handleLogin = () => {
-    console.log("Login requested");
-    // This is where you would trigger the auth flow (e.g. Supabase Auth, Clerk, etc.)
-  };
+  const { user, logout } = useAuth(); // Use AuthContext
+  const router = useRouter();
 
   useEffect(() => {
     // Fetch posts when the component mounts
@@ -58,7 +57,16 @@ export default function Home() {
         setLang={setLang}
         t={t}
         onViewChange={setActiveView}
-        onLogin={handleLogin}
+        onLogin={() => {
+          if (user) {
+            logout();
+            router.push('/');
+          } else {
+            router.push('/login');
+          }
+        }}
+        isLoggedIn={!!user}
+        userRole={user?.role}
       />
 
       <main className="pt-16">

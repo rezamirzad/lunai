@@ -17,9 +17,14 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@workspace/db": "workspace:*",
+    "@workspace/shared": "*",
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
     "express": "^4.19.2",
-    "@workspace/shared": "*"
+    "pg": "^8.21.0",
+    "drizzle-orm": "^0.30.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

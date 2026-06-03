@@ -12,6 +12,8 @@ interface NavbarProps {
   t: TranslationInterface;
   onViewChange?: (view: string) => void;
   onLogin?: () => void;
+  isLoggedIn?: boolean;
+  userRole?: "admin" | "client";
 }
 
 export default function Navbar({
@@ -20,6 +22,8 @@ export default function Navbar({
   t,
   onViewChange,
   onLogin,
+  isLoggedIn = false,
+  userRole,
 }: NavbarProps) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -32,6 +36,14 @@ export default function Navbar({
       window.location.href = view === "home" ? "/" : `/#${view}`;
     }
   };
+
+  const loginLabel = isLoggedIn
+    ? userRole === "admin"
+      ? "Admin"
+      : userRole === "client"
+      ? "Client"
+      : t.login
+    : t.login;
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
@@ -47,6 +59,30 @@ export default function Navbar({
         {/* Desktop Links (md+) */}
         <div className="hidden md:flex items-center gap-8">
           <div className="flex items-center gap-1 text-sm font-bold text-zinc-400 uppercase tracking-widest">
+            {isLoggedIn && userRole === "admin" && (
+              <>
+                <button
+                  onClick={() => handleNavClick("admin/dashboard")}
+                  className="hover:text-white transition-colors h-11 px-4"
+                >
+                  Admin
+                </button>
+                <button
+                  onClick={() => (window.location.href = "/apps/fndr")}
+                  className="hover:text-white transition-colors h-11 px-4 text-teal-500 font-black"
+                >
+                  FNDR
+                </button>
+              </>
+            )}
+            {isLoggedIn && userRole === "client" && (
+              <button
+                onClick={() => handleNavClick("client/dashboard")}
+                className="hover:text-white transition-colors h-11 px-4"
+              >
+                Client
+              </button>
+            )}
             <button
               onClick={() => handleNavClick("services")}
               className="hover:text-white transition-colors h-11 px-4"
@@ -94,7 +130,7 @@ export default function Navbar({
             </div>
 
             <UserAuth
-              label={t.login}
+              label={loginLabel}
               onClick={onLogin}
               className="h-10 px-6 text-xs bg-white text-black hover:bg-zinc-200 border-none rounded-lg"
             />
@@ -122,6 +158,8 @@ export default function Navbar({
         t={t}
         onViewChange={onViewChange}
         onLogin={onLogin}
+        isLoggedIn={isLoggedIn}
+        userRole={userRole}
       />
     </nav>
   );

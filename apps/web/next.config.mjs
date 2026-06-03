@@ -6,6 +6,14 @@ const nextConfig = {
       '/': ['./content/**/*'],
     },
   },
+  async rewrites() {
+    return [
+      {
+        source: '/apps/fndr/:path*',
+        destination: 'http://localhost:3004/apps/fndr/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;
