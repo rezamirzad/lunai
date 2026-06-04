@@ -45,7 +45,7 @@ export class QueueWorker {
   }
 
   private async getNextJob() {
-    return await db.transaction(async (tx) => {
+    return await db.transaction(async (tx: any) => {
       // Find one pending job that is scheduled for now or in the past
       // Use FOR UPDATE SKIP LOCKED to handle concurrency
       const result = await tx.execute(sql`

@@ -116,7 +116,7 @@ export const LeadTable: React.FC<LeadTableProps> = ({
         </div>
       </div>
 
-      <Grid columns={1} gap={6} className="md:grid-cols-1 lg:grid-cols-1">
+      <Grid cols={1} gap={6} className="md:grid-cols-1 lg:grid-cols-1">
         {leads.map((lead) => (
           <Card
             key={lead.id}

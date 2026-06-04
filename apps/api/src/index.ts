@@ -126,7 +126,7 @@ app.post("/login", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Backend template listening on port ${PORT}`);
   // Start the queue worker
-  queueWorker.start().catch(err => {
+  queueWorker.start().catch((err: any) => {
     console.error('Failed to start QueueWorker:', err);
   });
 });

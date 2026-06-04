@@ -25,7 +25,7 @@ export class FndrService {
     if (existingLeads.length > 0) {
       return {
         status: "cached",
-        leads: existingLeads.map((el) => el.lead),
+        leads: existingLeads.map((el: any) => el.lead),
         count: existingLeads.length,
       };
     }
@@ -62,6 +62,10 @@ export class FndrService {
         status: "pending",
       })
       .returning();
+
+    if (!newJob) {
+      throw new Error("Failed to create discovery job");
+    }
 
     return {
       status: "queued",
