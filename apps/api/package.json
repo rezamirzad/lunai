@@ -17,7 +17,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@workspace/db": "workspace:*",
+    "@workspace/db": "*",
     "@workspace/shared": "*",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
